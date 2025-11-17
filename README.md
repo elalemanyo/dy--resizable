@@ -31,7 +31,7 @@ resizable.on('resize', function(){
 | `draggable` | `false` | Make element [draggable](http://github.com/dfcreative/draggy) as well. Set an object to pass options to draggable. |
 | `css3` | `true` | Use `translate3d` for defining position. |
 | `persist` | `'session'` | Enable persistence of the element's inline style. Can be `'session'` (default) or `'local'` to select `sessionStorage` or `localStorage` respectively. Can also be a boolean (`true` -> `'session'`, `false` -> disabled). |
-| `persistKey` | `''` | When `persist` is enabled, the string key used to store the element's inline style in the selected storage. |
+| `persistKey` | `null` | When `persist` is enabled, the string key used to store the element's inline style in the selected storage. |
 
 \* Default handles are dependent on the styling of the given element. Inline
 elements will default to `s`, `se`, `e`, while elements that can support full
