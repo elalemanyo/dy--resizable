@@ -155,10 +155,10 @@ test('localStorage save handler', function () {
 	body.appendChild(el);
 
 	new Resizable(el, {
-		localStorage: 'resizable-test',
+		persist: 'local',
+		persistKey: 'resizable-test',
 		within: 'parent',
 		threshold: 1,
-		draggable: false,
-		within: 'parent'
+		draggable: false
 	});
 });
