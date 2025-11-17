@@ -147,3 +147,18 @@ test('height: 100perc', function () {
 		within: body
 	});
 });
+
+test('localStorage save handler', function () {
+	var el = h`
+		<div class="resizable" style="position: absolute; top: 300px; left: 300px; width: 100px; height: 100px;">localStorage test</div>
+	`;
+	body.appendChild(el);
+
+	new Resizable(el, {
+		localStorage: 'resizable-test',
+		within: 'parent',
+		threshold: 1,
+		draggable: false,
+		within: 'parent'
+	});
+});
