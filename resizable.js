@@ -31,6 +31,16 @@ function Resizable(el, options) {
 
 	Object.assign(self, options);
 
+	// Restore inline styles from localStorage if configured
+	if (self.localStorage) {
+		try {
+			const saved = localStorage.getItem(self.localStorage);
+			if (saved) self.element.style.cssText = saved;
+		} catch (_) {
+			// silently ignore
+		}
+	}
+
 	//if element isn’t draggable yet - force it to be draggable, without movements
 	if (self.draggable === true) {
 		self.draggable = new Draggable(self.element, {
@@ -63,6 +73,9 @@ proto.css3 = true;
 
 /** Make itself draggable to the row */
 proto.draggable = false;
+
+/** localStorage key (string) */
+proto.localStorage = null;
 
 // events
 proto.on = function (event, callback) { on(this, event, callback) }
@@ -414,6 +427,9 @@ proto.createHandle = function (handle, direction) {
 		//trigger callbacks
 		emit(self, 'resizeend');
 		emit(el, 'resizeend');
+
+		// persist inline styles if localStorage is configured
+		if (self.localStorage) self.saveToLocalStorage();
 	});
 
 	//append styles
@@ -525,5 +541,16 @@ var handleStyles = {
 function clamp(value, min, max) {
 	return Math.max(min, Math.min(value, max));
 }
+
+/** Save current inline style to localStorage under `localStorage` key */
+proto.saveToLocalStorage = function () {
+	if (!this.element || !this.localStorage) return;
+
+	try {
+		localStorage.setItem(this.localStorage, this.element.style.cssText);
+	} catch (_) {
+		// silently ignore quota / privacy errors
+	}
+};
 
 export default Resizable
